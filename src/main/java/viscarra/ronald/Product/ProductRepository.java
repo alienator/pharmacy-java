@@ -9,4 +9,8 @@ public interface ProductRepository {
     public List<Product> findNotExpired();
 
     public List<Product> findExpired();
+
+    public void save(Product product);
+
+    public void delete(Product product);
 }

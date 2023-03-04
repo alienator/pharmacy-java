@@ -8,9 +8,6 @@ public class Product {
     private Date expiresAt;
     private double price;
 
-    public Product() {
-    }
-
     public Product(int id, String description, Date expiresAt, double price) {
         this.id = id;
         this.description = description;

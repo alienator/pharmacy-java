@@ -20,4 +20,12 @@ public class ProductService {
     public List<Product> listExpired() {
         return this.repository.findExpired();
     }
+
+    public void save(Product product) {
+        this.repository.save(product);
+    }
+
+    public void delete(Product product) {
+        this.repository.delete(product);
+    }
 }

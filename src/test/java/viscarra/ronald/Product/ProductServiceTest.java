@@ -2,6 +2,8 @@ package viscarra.ronald.Product;
 
 import static org.mockito.Mockito.mock;
 
+import java.util.Date;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -25,7 +27,7 @@ public class ProductServiceTest {
         this.serviceUnderTest.listAll();
 
         // Then
-        Mockito.verify(repository).find();
+        Mockito.verify(this.repository).find();
     }
 
     @Test
@@ -36,9 +38,10 @@ public class ProductServiceTest {
         this.serviceUnderTest.listNotExpired();
 
         // Then
-        Mockito.verify(repository).findNotExpired();
+        Mockito.verify(this.repository).findNotExpired();
     }
 
+    @Test
     public void testListExpiredProducts() {
         // Given
 
@@ -46,6 +49,32 @@ public class ProductServiceTest {
         this.serviceUnderTest.listExpired();
 
         // Then
-        Mockito.verify(repository).findExpired();
+        Mockito.verify(this.repository).findExpired();
+    }
+
+    @Test
+    public void testItCanSaveProducts() {
+        // Given
+        Date d = new Date();
+        Product product = new Product(1, "Some product", d, 3.3);
+
+        // When
+        this.serviceUnderTest.save(product);
+
+        // Then
+        Mockito.verify(this.repository).save(product);
+    }
+
+    @Test
+    public void testItCanDeleteProducts() {
+        // Given
+        Date d = new Date();
+        Product product = new Product(1, "Some product", d, 3.3);
+
+        // When
+        this.serviceUnderTest.delete(product);
+
+        // Then
+        Mockito.verify(this.repository).delete(product);
     }
 }
