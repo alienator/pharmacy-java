@@ -8,11 +8,14 @@ public class Product {
     private Date expiresAt;
     private double price;
 
+    private boolean enable;
+
     public Product(int id, String description, Date expiresAt, double price) {
         this.id = id;
         this.description = description;
         this.expiresAt = expiresAt;
         this.price = price;
+        this.enable = true;
     }
 
     public int getId() {
@@ -47,17 +50,19 @@ public class Product {
         this.price = price;
     }
 
+    public boolean isEnable() {
+        return enable;
+    }
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
+    }
+
     @Override
     public String toString() {
-        return "Product [description=" +
-                description +
-                ", expiresAt=" +
-                expiresAt +
-                ", id=" +
-                id +
-                ", price=" +
-                price +
-                "]";
+        return "Product [description=" + description + ", enable=" + enable +
+                ", expiresAt=" + expiresAt + ", id=" + id
+                + ", price=" + price + "]";
     }
 
 }

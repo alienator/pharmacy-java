@@ -28,4 +28,10 @@ public class ProductService {
     public void delete(Product product) {
         this.repository.delete(product);
     }
+
+    public void sell(Product product) {
+        product.setEnable(false);
+        this.repository.save(product);
+    }
+
 }

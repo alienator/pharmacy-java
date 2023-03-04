@@ -1,11 +1,13 @@
 package viscarra.ronald.Product;
 
+import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.mock;
 
 import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
 public class ProductServiceTest {
@@ -76,5 +78,20 @@ public class ProductServiceTest {
 
         // Then
         Mockito.verify(this.repository).delete(product);
+    }
+
+    @Test
+    public void testItCanSellProducts() {
+        // Given
+        Date d = new Date();
+        Product product = new Product(1, "Some product", d, 3.3);
+
+        // When
+        ArgumentCaptor<Product> prod = ArgumentCaptor.forClass(Product.class);
+        this.serviceUnderTest.sell(product);
+
+        // Then
+        Mockito.verify(this.repository).save(prod.capture());
+        assertFalse(prod.getValue().isEnable());
     }
 }
