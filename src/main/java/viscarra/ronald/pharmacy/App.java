@@ -1,4 +1,4 @@
-package viscarra.ronald;
+package viscarra.ronald.pharmacy;
 
 /**
  * Hello world!

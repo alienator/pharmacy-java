@@ -1,4 +1,4 @@
-package viscarra.ronald;
+package viscarra.ronald.pharmacy;
 
 import static org.junit.Assert.assertTrue;
 

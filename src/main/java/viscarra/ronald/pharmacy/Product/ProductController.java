@@ -1,4 +1,4 @@
-package viscarra.ronald.Product;
+package viscarra.ronald.pharmacy.Product;
 
 import java.util.ArrayList;
 import java.util.Date;

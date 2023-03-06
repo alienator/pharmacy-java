@@ -1,4 +1,4 @@
-package viscarra.ronald.Product;
+package viscarra.ronald.pharmacy.Product;
 
 import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.mock;
