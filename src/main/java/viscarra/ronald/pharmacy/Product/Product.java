@@ -24,6 +24,9 @@ public class Product {
     public Product() {
     }
 
+    /**
+     * @param: String description
+     */
     public Product(String description, Date expiresAt, double price) {
         this.description = description;
         this.expiresAt = expiresAt;

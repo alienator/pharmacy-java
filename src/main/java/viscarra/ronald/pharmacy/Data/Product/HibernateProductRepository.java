@@ -59,8 +59,16 @@ public class HibernateProductRepository implements ProductRepository {
     }
 
     public void save(Product product) {
+        EntityManager entityManager = sessionFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        // entityManager.persist(product);
+        entityManager.merge(product);
+        entityManager.getTransaction().commit();
+        entityManager.close();
     }
 
     public void delete(Product product) {
+        product.setEnable(false);
+        this.save(product);
     }
 }
