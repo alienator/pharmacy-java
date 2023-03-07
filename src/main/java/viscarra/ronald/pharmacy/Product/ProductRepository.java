@@ -13,4 +13,6 @@ public interface ProductRepository {
     public void save(Product product);
 
     public void delete(Product product);
+
+    public Product findById(int id);
 }

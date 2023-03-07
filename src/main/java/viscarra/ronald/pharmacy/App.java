@@ -38,18 +38,73 @@ public class App {
                 case 2:
                     listExpired();
                     break;
-
+                case 3:
+                    listAllProduct();
+                    break;
+                case 4:
+                    sellProduct();
+                    break;
                 case 5:
                     addProduct();
                     break;
-                case 3:
-                    listAllProduct();
+                case 7:
+                    deleteProduct();
                     break;
             }
 
         }
         scanner.close();
         System.exit(0);
+    }
+
+    static private void deleteProduct() {
+        System.out.println("\n---Delete a product---");
+        System.out.print("Id: ");
+
+        String in;
+        in = scanner.nextLine();
+
+        int id = 0;
+        try {
+            id = Integer.parseInt(in);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        Product product = service.findById(id);
+        if (product.getId() <= 0) {
+            System.out.println("Wrong product!");
+            return;
+        }
+
+        service.delete(product);
+
+        System.out.println("\n---end Delete a product---");
+    }
+
+    static private void sellProduct() {
+        System.out.println("\n---Sell a product---");
+        System.out.print("Id: ");
+
+        String in;
+        in = scanner.nextLine();
+
+        int id = 0;
+        try {
+            id = Integer.parseInt(in);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        Product product = service.findById(id);
+        if (product.getId() <= 0) {
+            System.out.println("Wrong product!");
+            return;
+        }
+
+        service.sell(product);
+
+        System.out.println("\n---end Sell a product---");
     }
 
     static private void listExpired() {

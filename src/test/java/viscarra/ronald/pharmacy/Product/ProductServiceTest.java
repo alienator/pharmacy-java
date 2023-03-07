@@ -94,4 +94,16 @@ public class ProductServiceTest {
         Mockito.verify(this.repository).save(prod.capture());
         assertFalse(prod.getValue().isEnable());
     }
+
+    @Test
+    public void testAProductCanBeFindedById() {
+        // Given
+        int id = 1;
+
+        // When
+        this.serviceUnderTest.findById(id);
+
+        // Then
+        Mockito.verify(this.repository).findById(id);
+    }
 }

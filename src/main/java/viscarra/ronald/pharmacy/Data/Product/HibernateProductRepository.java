@@ -71,4 +71,24 @@ public class HibernateProductRepository implements ProductRepository {
         product.setEnable(false);
         this.save(product);
     }
+
+    public Product findById(int id) {
+        EntityManager entityManager = sessionFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+
+        Product result = new Product();
+        try {
+            result = entityManager
+                    .createQuery("select p from Product p where id=:id", Product.class)
+                    .setParameter("id", id)
+                    .setMaxResults(1)
+                    .getSingleResult();
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+        }
+
+        entityManager.close();
+
+        return result;
+    }
 }
