@@ -33,9 +33,12 @@ public class App {
 
             switch (opt) {
                 case 1:
-                    List<Product> result = service.listAll();
-                    System.out.println(result);
+                    listNotExpired();
                     break;
+                case 2:
+                    listExpired();
+                    break;
+
                 case 5:
                     addProduct();
                     break;
@@ -47,6 +50,28 @@ public class App {
         }
         scanner.close();
         System.exit(0);
+    }
+
+    static private void listExpired() {
+        System.out.println("\n---List expired products---");
+
+        List<Product> results = service.listExpired();
+        for (Product p : results) {
+            System.out.println(p.toString());
+        }
+
+        System.out.println("\n---end List expired products---");
+    }
+
+    static private void listNotExpired() {
+        System.out.println("\n---List not expired products---");
+
+        List<Product> results = service.listNotExpired();
+        for (Product p : results) {
+            System.out.println(p.toString());
+        }
+
+        System.out.println("\n---end List not expired products---");
     }
 
     static private void listAllProduct() {
