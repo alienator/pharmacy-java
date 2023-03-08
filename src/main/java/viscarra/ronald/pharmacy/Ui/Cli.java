@@ -1,4 +1,4 @@
-package viscarra.ronald.pharmacy;
+package viscarra.ronald.pharmacy.Ui;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -7,13 +7,12 @@ import java.util.Scanner;
 import viscarra.ronald.pharmacy.Data.Product.HibernateProductRepository;
 import viscarra.ronald.pharmacy.Product.Product;
 import viscarra.ronald.pharmacy.Product.ProductService;
-import viscarra.ronald.pharmacy.Ui.Menu;
 
-public class App {
-    static private ProductService service = new ProductService(new HibernateProductRepository());
-    static private Scanner scanner;
+public class Cli {
+    private ProductService service = new ProductService(new HibernateProductRepository());
+    private Scanner scanner;
 
-    public static void main(String[] args) {
+    public void run() {
         Menu menu = new Menu();
 
         scanner = new Scanner(System.in);
@@ -47,6 +46,9 @@ public class App {
                 case 5:
                     addProduct();
                     break;
+                case 6:
+                    editProduct();
+                    break;
                 case 7:
                     deleteProduct();
                     break;
@@ -57,7 +59,62 @@ public class App {
         System.exit(0);
     }
 
-    static private void deleteProduct() {
+    private void editProduct() {
+        System.out.println("\n---Edit a product---");
+        System.out.print("Id: ");
+
+        String in;
+        in = scanner.nextLine();
+
+        int id = 0;
+        try {
+            id = Integer.parseInt(in);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        Product product = service.findById(id);
+        if (product.getId() <= 0) {
+            System.out.println("Wrong product!");
+            return;
+        }
+
+        System.out.println("Product details:");
+        System.out.println(product.toString());
+
+        System.out.print("New Desripciton: (empty to not change): ");
+        in = scanner.nextLine();
+        if (!in.trim().isEmpty()) {
+            product.setDescription(in);
+        }
+
+        System.out.print("New Expiritaion date: (empty to not change): ");
+        in = scanner.nextLine();
+        if (!in.trim().isEmpty()) {
+            try {
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                product.setExpiresAt(df.parse(in));
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+
+        System.out.print("New Price: (empty to not change): ");
+        in = scanner.nextLine();
+        if (!in.trim().isEmpty()) {
+            try {
+                double p = Double.parseDouble(in);
+                product.setPrice(p);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+
+        service.save(product);
+        System.out.println("\n---end Edit a product---");
+    }
+
+    private void deleteProduct() {
         System.out.println("\n---Delete a product---");
         System.out.print("Id: ");
 
@@ -82,7 +139,7 @@ public class App {
         System.out.println("\n---end Delete a product---");
     }
 
-    static private void sellProduct() {
+    private void sellProduct() {
         System.out.println("\n---Sell a product---");
         System.out.print("Id: ");
 
@@ -107,7 +164,7 @@ public class App {
         System.out.println("\n---end Sell a product---");
     }
 
-    static private void listExpired() {
+    private void listExpired() {
         System.out.println("\n---List expired products---");
 
         List<Product> results = service.listExpired();
@@ -118,7 +175,7 @@ public class App {
         System.out.println("\n---end List expired products---");
     }
 
-    static private void listNotExpired() {
+    private void listNotExpired() {
         System.out.println("\n---List not expired products---");
 
         List<Product> results = service.listNotExpired();
@@ -129,7 +186,7 @@ public class App {
         System.out.println("\n---end List not expired products---");
     }
 
-    static private void listAllProduct() {
+    private void listAllProduct() {
         System.out.println("\n---List all products---");
 
         List<Product> results = service.listAll();
@@ -140,7 +197,7 @@ public class App {
         System.out.println("\n---end List all products---");
     }
 
-    static private void addProduct() {
+    private void addProduct() {
         Product product = new Product();
         String in;
 
